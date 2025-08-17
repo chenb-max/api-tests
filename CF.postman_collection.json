@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "8641d8b3-a7a6-4a5b-96ca-e3460027ea5b",
+		"name": "CF开放接口",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "获取token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsondata = pm.response.json();\r",
+							"pm.test(\"err_msg is success\",function(){\r",
+							"    pm.expect(jsondata.err_msg).to.eql(\"success\")\r",
+							"    pm.collectionVariables.set(\"token\",jsondata.info.access_token)});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{ip}}/Api-Oauth-token?appid={{appid}}&appsecret={{appsecret}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-Oauth-token"
+					],
+					"query": [
+						{
+							"key": "appid",
+							"value": "CFD2CD9B99",
+							"description": "测试chenbing",
+							"disabled": true
+						},
+						{
+							"key": "appsecret",
+							"value": "f57d5b7bdedc269bfbbafc3b451479bb",
+							"description": "测试chenbing",
+							"disabled": true
+						},
+						{
+							"key": "appid",
+							"value": "CF5931ED34",
+							"description": "测试chenb4",
+							"disabled": true
+						},
+						{
+							"key": "appsecret",
+							"value": "de18e98769c3d421bba7a3c8de373422",
+							"description": "测试chenb4",
+							"disabled": true
+						},
+						{
+							"key": "appid",
+							"value": "CFDF7C7838",
+							"description": "测试chenb05",
+							"disabled": true
+						},
+						{
+							"key": "appsecret",
+							"value": "f75b11c0b954ab0f4561bf684143924d",
+							"description": "测试chenb05",
+							"disabled": true
+						},
+						{
+							"key": "appid",
+							"value": "CFE655716F",
+							"description": "linxx",
+							"disabled": true
+						},
+						{
+							"key": "appsecret",
+							"value": "efaff386c29c05b75734b8a5f6085304",
+							"description": "linxx",
+							"disabled": true
+						},
+						{
+							"key": "appid",
+							"value": "{{appid}}"
+						},
+						{
+							"key": "appsecret",
+							"value": "{{appsecret}}"
+						},
+						{
+							"key": "branch",
+							"value": "opt_plat_block_info",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "板编号查订单/排单信息",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"block_no\": \"2412452990362\"\r\n    // 小板2412004486645  DD：20241205036277\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-blockNoInfo?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-blockNoInfo"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "branch",
+							"value": "opt_plat_block_info",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "大板中小板信息",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    // \"plan_id\": 1306670375\r\n    \"order_no\":\"N20250103036635\"                  //取排单后保存的数据\r\n}\r\n// normalBoardUsedRate:  正常大板利用率\r\n// scrapBoardUsedRate:  余料板的利用率",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-cutResult?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-cutResult"
+					],
+					"query": [
+						{
+							"key": "branch",
+							"value": "opt_cut_summary_format",
+							"disabled": true
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "订单列表查询",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"curr_page\": 1,\r\n    \"page_count\": 2,\r\n    \"del_state\": 0,   // 0:正常  1：作废\r\n    \"order_no\": [\"N20241205036277\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-orderList?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-orderList"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "排单列表查询",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"curr_page\": 1,\r\n    \"page_count\": 10,\r\n    \"query_type\": \"1\"    // 1:所有排单(包含作废)   2:作废排单  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-getPlanOrders?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-getPlanOrders"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "员工列表查询",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsondata = pm.response.json();\r",
+							"pm.test(\"err_msg is success\",function(){\r",
+							"    pm.expect(jsondata.err_msg).to.eql(\"success\")\r",
+							"    pm.expect(jsondata.data[0].user_id).to.eql(\"2609\")})\r",
+							"pm.test(\"user_id is 2609\",function(){\r",
+							"    pm.expect(jsondata.data[0].user_id).to.eql(\"2609\")})    "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"curr_page\":\"1\",\"page_count\":\"20\",\"login_name\":\"chenbing\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-getAllStaff?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-getAllStaff"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建订单",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsondata = pm.response.json();\r",
+							"\r",
+							"pm.test(\"err_msg is success\",function(){\r",
+							"    pm.expect(jsondata.err_msg).to.eql(\"添加成功\")})\r",
+							"pm.test(\"err_code is 0\",function(){\r",
+							"    pm.expect(jsondata.err_code).to.eql(0)})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"custom_order_no\": \"\",\r\n    \"store_name\": \"经销商1\",\r\n    \"store_phone\": \"13333333330\",\r\n    \"cosignee_name\": \"测试1\",\r\n    \"cosignee_phone\": \"11111111111\",\r\n    \"cosignee_address\": \"测试地址\",\r\n    \"staff_id\": \"2609\",\r\n    \"cd_user\": \"2609\",\r\n    \"designer_id\": \"2609\",\r\n    \"end_date\": \"2024-12-04\",\r\n    \"comments\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-orderCreate?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-orderCreate"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "核销接口",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ids\": [\r\n        240904579253819,\r\n        240705098980314,\r\n        240705098877603,\r\n        240705098877602,\r\n        240613933935676,\r\n        240613934008117\r\n    ],\r\n    \"status\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-verifyScrap?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-verifyScrap"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "branch",
+							"value": "opt_plat_verify_scrap",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "余料查询",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsondata = pm.response.json();\r",
+							"pm.test(\"err_msg is success\",function(){\r",
+							"    pm.expect(jsondata.err_msg).to.eql(\"通知成功\")});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"curr_page\": 1,\r\n    \"page_count\": 20,\r\n    // \"scrap_no\": \"241017898326543\"     // 余料\r\n    // \"order_no\": \"N20241011034711\" // 测试订单号\r\n    \"order_no\": \"N20241017134440\" // 生产订单号 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-platScrap?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-platScrap"
+					],
+					"query": [
+						{
+							"key": "branch",
+							"value": "opt_scrap_orderno",
+							"disabled": true
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "订单板件生产数据",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+							"\r",
+							"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+							"\r",
+							"<script>\r",
+							"    var ctx = document.getElementById(\"myChart\");\r",
+							"\r",
+							"    var myChart = new Chart(ctx, {\r",
+							"        type: \"bar\",\r",
+							"        data: {\r",
+							"            labels: [],\r",
+							"            datasets: [{\r",
+							"                data: [],\r",
+							"                \r",
+							"                // Change these colours to customize the chart\r",
+							"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\", \"#ff6361\", \"#ffa600\"],\r",
+							"            }]\r",
+							"        },\r",
+							"        options: {\r",
+							"            legend: { display: false },\r",
+							"            title: {\r",
+							"                display: true,\r",
+							"                text: 'Count'\r",
+							"            },\r",
+							"            scales: {\r",
+							"                xAxes: [{\r",
+							"                    display: true,\r",
+							"                    scaleLabel: {\r",
+							"                        display: true,\r",
+							"                        labelString: 'Items'\r",
+							"                    }\r",
+							"                }],\r",
+							"                yAxes: [{\r",
+							"                    display: true,\r",
+							"                    scaleLabel: {\r",
+							"                        display: true,\r",
+							"                        labelString: 'Count'\r",
+							"                    }\r",
+							"                }]\r",
+							"            }\r",
+							"        }\r",
+							"\r",
+							"    });\r",
+							"\r",
+							"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+							"    // code of the Visualizer template\r",
+							"    pm.getData(function (err, value) {\r",
+							"        myChart.data.datasets[0].data = value.response.value;\r",
+							"        myChart.data.labels = value.response.labels;\r",
+							"        myChart.update();\r",
+							"    });\r",
+							"\r",
+							"</script>`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    var res = pm.response.json();\r",
+							"    \r",
+							"    var visualizerData = {\r",
+							"        \r",
+							"        // Labels take an array of strings\r",
+							"        labels: [],\r",
+							"        \r",
+							"        // Data takes an array of numbers\r",
+							"        value: res.value\r",
+							"    };\r",
+							"\r",
+							"    return {response: visualizerData};\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"order_no\": \"N20241106430809\",\r\n    \"format\": \"XML\"\r\n    // \"version\":\"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-orderPlanData?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-orderPlanData"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "板材数据",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"curr_page\": \"1\",\r\n    \"page_count\": \"10\",\r\n    \"order_no\": \"N20241230036555\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-getBlocks?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-getBlocks"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "板材明细",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"curr_page\": \"1\",\r\n    \"page_count\": \"5\",\r\n    \"order_no\": \"N20241231036575\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/Api-erpOrders-blocksList?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-blocksList"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "配件明细",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"curr_page\": \"1\",\r\n    \"page_count\": \"1\",\r\n    \"order_no\": \"N20241107447057\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}/Api-erpOrders-partsList?token={{token}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"Api-erpOrders-partsList"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
